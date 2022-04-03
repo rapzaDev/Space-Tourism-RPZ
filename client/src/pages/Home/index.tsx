@@ -1,6 +1,8 @@
+import { Container } from './styles';
+
 function Home() {
     return(
-        <div>HOME PAGE</div>
+        <Container id="home-page"></Container>
     );
 };
 
