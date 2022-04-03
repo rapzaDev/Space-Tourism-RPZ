@@ -14,6 +14,18 @@ export const Container = styled.button`
     cursor: pointer;
 
     color: ${(props) => props.theme.colors.white};
+
+    &:hover {
+        .underline {
+            background-color: ${(props) => props.theme.colors.white};
+            opacity: 0.5;
+
+            &.active {
+                opacity: 1;
+            }
+        }
+    }
+
 `;
 
 export const Content = styled.div`
@@ -38,5 +50,10 @@ export const Underline = styled.div`
     width: 100%;
     height: 3px;
 
-    background-color: ${(props) => props.theme.colors.white};
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+
+    &.active {
+        background-color: ${(props) => props.theme.colors.white};
+    }
 `;
