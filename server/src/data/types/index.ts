@@ -9,6 +9,7 @@ export type TechnologyImages = {
 };
 
 export type Destinations = {
+    id: number;
     name: string;
     images: Image;
     description: string;
@@ -17,6 +18,7 @@ export type Destinations = {
 };
 
 export type Crew = {
+    id: number;
     name: string;
     images: Image;
     role: string;
@@ -24,7 +26,21 @@ export type Crew = {
 };
 
 export type Technology = {
+    id: number;
     name: string;
     images: TechnologyImages;
+    description: string;
+};
+
+export type Categories = {
+    home: string;
+    destination: string;
+    crew: string;
+    technology: string;
+};
+
+export type Home = {
+    h5: string;
+    h1: string;
     description: string;
 }

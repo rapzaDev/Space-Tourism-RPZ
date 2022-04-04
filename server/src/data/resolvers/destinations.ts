@@ -1,15 +1,25 @@
-import { Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver } from "type-graphql";
 
-import Destinations from "../model/destinations";
+import Destination from "../model/destination";
 import { destinationsSamples } from '../samples/destinations';
 
 @Resolver()
 class DestinationsResolver {
-    constructor(private destinations: Destinations[] = destinationsSamples()) {}
+    constructor(private destinations: Destination[] = destinationsSamples()) {}
 
-    @Query(() => [Destinations])
-    getDestinations(): Destinations[] {
+    @Query(() => [Destination])
+    Destinations(): Destination[] {
         return this.destinations;
+    }
+
+    @Query(() => Destination)
+    Destination(@Arg("id") id: number): Destination {
+        let destination = {} as Destination;
+        const data = this.destinations.find( target => target.id === id )
+
+        if (data) destination = data;
+
+        return destination;
     }
 };
 

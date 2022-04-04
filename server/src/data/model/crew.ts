@@ -6,6 +6,9 @@ import Image from "./image";
 @ObjectType()
 class Crew {
     @Field()
+    id: number;
+
+    @Field()
     name: string;
     
     @Field(() => Image)

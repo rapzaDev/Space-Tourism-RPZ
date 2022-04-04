@@ -1,4 +1,4 @@
-import { Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver } from "type-graphql";
 
 import Technology from "../model/technology";
 import { technologySamples } from '../samples/technology';
@@ -8,8 +8,18 @@ class TechnologiesResolver {
     constructor(private technologies: Technology[] = technologySamples()) {}
 
     @Query(() => [Technology])
-    getTechnologies(): Technology[] {
+    Technologies(): Technology[] {
         return this.technologies;
+    }
+
+    @Query(() => Technology)
+    Technology(@Arg("id") id: number): Technology {
+        let technology = {} as Technology;
+        const data = this.technologies.find( target => target.id === id )
+
+        if (data) technology = data;
+
+        return technology;
     }
 };
 

@@ -7,6 +7,9 @@ import TechnologyImage from "./technologyImage";
 @ObjectType()
 class Technology {
     @Field()
+    id: number;
+
+    @Field()
     name: string;
     
     @Field(() => TechnologyImage)

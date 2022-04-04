@@ -4,7 +4,10 @@ import { Image as ImageType } from '../types'
 import Image from "./image";
 
 @ObjectType()
-class Destinations {
+class Destination {
+    @Field()
+    id: number;
+    
     @Field()
     name: string;
     
@@ -21,4 +24,4 @@ class Destinations {
     travel: string;
 };
 
-export default Destinations;
+export default Destination;

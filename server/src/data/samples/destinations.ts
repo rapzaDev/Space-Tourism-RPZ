@@ -3,6 +3,7 @@ import { Destinations } from '../types';
 export function destinationsSamples(): Destinations[] {
     return [
         {
+            id: 1,
             name: "Moon",
             images: {
               png: "../../public/assets/destination/image-moon.png",
@@ -13,6 +14,7 @@ export function destinationsSamples(): Destinations[] {
             travel: "3 days"
           },
           {
+            id: 2,
             name: "Mars",
             images: {
               png: "../../public/assets/destination/image-mars.png",
@@ -23,6 +25,7 @@ export function destinationsSamples(): Destinations[] {
             travel: "9 months"
           },
           {
+            id: 3,
             name: "Europa",
             images: {
               png: "../../public/assets/destination/image-europa.png",
@@ -33,6 +36,7 @@ export function destinationsSamples(): Destinations[] {
             travel: "3 years"
           },
           {
+            id: 4,
             name: "Titan",
             images: {
               png: "../../public/assets/destination/image-titan.png",
