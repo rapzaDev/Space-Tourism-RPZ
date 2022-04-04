@@ -9,7 +9,7 @@ export const Container = styled.header`
     padding-left: 3.4375rem;
 
     height: 6rem;
-    max-width: 100%;
+    max-width: 100vw;
 
     margin-top: 2.5rem;
 

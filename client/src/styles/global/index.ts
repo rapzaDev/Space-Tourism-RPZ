@@ -14,7 +14,8 @@ export default createGlobalStyle`
 
     body {
         #home-page {
-            background: url(${homeDesktop}) no-repeat center;
+            background: url(${homeDesktop}) no-repeat;
+            background-attachment: fixed;
             background-size: 100% 100vh;
         }
     }

@@ -42,6 +42,8 @@ export const Content = styled.div`
         font: ${(props) => props.theme.fonts.NavText};
         opacity: 90%;
         text-transform: uppercase;
+
+        letter-spacing: 2.7px;
     }
 `;
 

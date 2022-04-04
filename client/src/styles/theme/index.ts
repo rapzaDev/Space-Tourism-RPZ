@@ -10,7 +10,7 @@ export default {
         SubHeading1: "400 1.8rem 'Bellefair'",
         SubHeading2: "400 0.9rem 'Barlow Condensed'",
         NavText: "400 1rem 'Barlow Condensed'",
-        BodyText: "400 1rem 'Barlow Condensed'",
+        BodyText: "400 1.125rem 'Barlow'",
     },
 
     colors: {
