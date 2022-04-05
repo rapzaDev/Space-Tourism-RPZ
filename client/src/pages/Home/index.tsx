@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+
+import { getHomeData } from '../../services/graphql/queries/home';
+
 import { 
     Container, 
     Main,
@@ -8,6 +12,17 @@ import {
 import Header from '../../components/Header';
 
 function Home() {
+
+    useEffect(() => {
+        const homeData = async () => {
+            const data = await getHomeData();
+
+            console.log(data);
+        }
+
+       homeData();
+    }, []);
+
     return(
         <Container id="home-page">
             <Header />

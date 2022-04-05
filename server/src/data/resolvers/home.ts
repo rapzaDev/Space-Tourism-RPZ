@@ -8,7 +8,7 @@ class HomeResolver {
     constructor(private home: Home = homeSamples()) {}
 
     @Query(() => Home)
-    Categories(): Home {
+    Home(): Home {
         return this.home;
     }
 };
