@@ -19,6 +19,8 @@ function Home() {
         const setHomeData = async () => {
             const data = await getHomeData();
 
+            console.log(data);
+
             setData(data);
         }
 
@@ -26,7 +28,7 @@ function Home() {
     }, []);
 
     return(
-        <Container id="home-page">
+        <Container id="main-page">
             <Header />
 
             <Main className="main">

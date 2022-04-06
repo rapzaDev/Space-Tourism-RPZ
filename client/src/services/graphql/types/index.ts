@@ -3,3 +3,17 @@ export type Home = {
     h1: string;
     description: string;
 };
+
+export type Image = {
+    png: string;
+    webp: string;
+};
+
+export type Destination = {
+    id: number;
+    name: string;
+    images: Image;
+    description: string;
+    distance: string;
+    travel: string;
+};

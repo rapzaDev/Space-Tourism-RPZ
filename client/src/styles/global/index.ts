@@ -13,7 +13,7 @@ export default createGlobalStyle`
     }
 
     body {
-        #home-page {
+        #main-page {
             background: url(${homeDesktop}) no-repeat;
             background-attachment: fixed;
             background-size: 100% 100vh;
@@ -22,14 +22,14 @@ export default createGlobalStyle`
 
     //QUERIES
     @media(max-width: 768px) {
-        body #home-page {
+        body #main-page {
             background: url(${homeTablet}) no-repeat center;
             background-size: 100% 100vh;
         }
     }
 
     @media(max-width: 375px) {
-        body #home-page {
+        body #main-page {
             background: url(${homeMobile}) no-repeat center;
             background-size: 100% 100vh;
         }
