@@ -19,24 +19,24 @@ function Destination() {
     const [data, setData] = useState<DestinationType>({} as DestinationType);
     const [image, setImage] = useState("");
 
+    //Getting GRAPHQL DESTINATION DATA
     useEffect(() => {
         const setDestinationData = async () => {
             const data = await getDestinationData(1);
             setData(data);
-
         }
         setDestinationData();
     }, []);
 
-    console.log('console data:', data);
-
+    //GETTING API GITHUB DATA
     useEffect(() => {
-        const url = 'https://api.github.com/repos/rapzaDev/Space-Tourism-RPZ/contents/server/src/public/assets/destination/image-moon.png';
-        fetch(url).then(response => response.json()).then(data => {
-            setImage(data.download_url)
-        })
-        console.log("console image:",image);
-    }, [data])
+        if (data.images){
+            const url = `${process.env.REACT_APP_DESTINATION_IMAGES_URL}/${data.images.png}`;
+            fetch(url).then(response => response.json()).then(data => {
+                setImage(data.download_url);
+            })
+        }
+    }, [data]);
 
     return(
         <Container id="main-page">
@@ -53,16 +53,34 @@ function Destination() {
                         <img 
                             src={image}
                             alt="Planet image"                                                  
-                            style={{
-                                width: "450px",
-                                height: "450px"
-                            }}
                         />
                     </div>
                 </SideContainer>
 
                 <Section className="section">
-                    <h5>Destination</h5>
+                    <nav>
+                        <button>moon</button>
+                        <button>mars</button>
+                        <button>europa</button>
+                        <button>titan</button>
+                    </nav>
+
+                    <h1>{data.name}</h1>
+                    <p>{data.description}</p>
+                
+                    <div className="separator"/>
+
+                    <div className="distance-travel">
+                        <div className="distance">
+                            <span>avg.distance</span>
+                            <span>{data.distance}</span>
+                        </div>
+
+                        <div className="travel">
+                            <span>est. travel time</span>
+                            <span>{data.travel}</span>
+                        </div>
+                    </div>
                 </Section>
             </Main>
         </Container>

@@ -23,46 +23,53 @@ export const Main = styled.main`
   padding: 0 0 7.8rem 10.3rem;
 `;
 
+export const SideContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  div:first-child {
+    display: flex;
+    gap: 1.75rem;
+    margin-bottom: 6rem;
+
+    span:first-child {
+      font-weight: bold;
+      color: ${(props) => props.theme.colors.white};
+      opacity: 0.25;
+    }
+
+    span {
+      font: ${(props) => props.theme.fonts.Heading5};
+      color: ${(props) => props.theme.colors.white};
+      letter-spacing: 4.72px;
+
+      text-transform: uppercase;
+    }
+  }
+
+  div + div{
+    margin-left: 4rem;
+
+    img {
+      width: 28.125rem;
+      height: 28.125rem;
+    }
+  }
+`;
+
 export const Section = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
 
+  margin-right: 10.1875rem;
+
   gap: 1.5rem;
-  
-  max-width: 28.1rem;
 
-  h5 {
-    font: ${(props) => props.theme.fonts.Heading5};
-    color: ${(props) => props.theme.colors.secundary};
-
-    text-transform: uppercase;
-
-    letter-spacing: 4.72px;
+  nav {
+    display: flex;
+    align-items: center;
   }
-
-  h1 {
-    font: ${(props) => props.theme.fonts.Heading1};
-    color: ${(props) => props.theme.colors.white};
-
-    text-transform: uppercase;
-  }
-
-  p {
-    font: ${(props) => props.theme.fonts.BodyText};
-    color: ${(props) => props.theme.colors.secundary};
-
-    line-height: 2rem;
-
-    max-width: 27.75rem;
-  }
-
-`;
-
-export const SideContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
 
 `;

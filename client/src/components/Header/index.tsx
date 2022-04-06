@@ -1,8 +1,4 @@
-import NavButton from '../NavButton';
 import NavButtons from '../NavButtons';
-
-import { useEffect } from 'react';
-
 
 import { 
     Container, 
@@ -11,6 +7,8 @@ import {
 } from './styles';
 
 import logo from '../../assets/icons/logo.svg';
+import { useEffect } from 'react';
+import { getCategoriesData } from '../../services/graphql/queries/categories';
 
 function Header() {
     return(

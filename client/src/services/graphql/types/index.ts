@@ -1,7 +1,8 @@
-export type Home = {
-    h5: string;
-    h1: string;
-    description: string;
+export type Categories = {
+    home: string;
+    destination: string;
+    crew: string;
+    technology: string;
 };
 
 export type Image = {
@@ -16,4 +17,10 @@ export type Destination = {
     description: string;
     distance: string;
     travel: string;
+};
+
+export type Home = {
+    h5: string;
+    h1: string;
+    description: string;
 };
