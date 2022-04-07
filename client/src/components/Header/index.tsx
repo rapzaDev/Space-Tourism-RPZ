@@ -1,4 +1,11 @@
+import React, { useCallback, useEffect, useState } from 'react';
+
+import { getCategoriesData } from '../../services/graphql/queries/categories';
+
 import NavButtons from '../NavButtons';
+import { NavButtonsType } from '../NavButtons';
+
+import logo from '../../assets/icons/logo.svg';
 
 import { 
     Container, 
@@ -6,22 +13,38 @@ import {
     NavContainer,
 } from './styles';
 
-import logo from '../../assets/icons/logo.svg';
-import { useEffect } from 'react';
-import { getCategoriesData } from '../../services/graphql/queries/categories';
-
 function Header() {
-    return(
+
+    const [headerButtons, setHeaderButtons] = useState<NavButtonsType[]>([]);
+
+    const getCategories = useCallback(async () => {
+        const categories = await getCategoriesData();
+
+        const buttonsData: NavButtonsType[] = [
+            {title: categories.home},
+            {title: categories.destination},
+            {title: categories.crew},
+            {title: categories.technology},
+        ]
+        setHeaderButtons(buttonsData);
+    }, [headerButtons])
+
+    useEffect(() => {
+        getCategories();
+    }, [])
+
+    return (
         <Container id="header">
             <img className="logo" src={logo} alt="App logo" />
 
             <HeaderLine className="header-line"/>
 
             <NavContainer>
-                <NavButtons />
+                {headerButtons && <NavButtons origin='header' buttons={headerButtons}/>}
             </NavContainer>
         </Container>
     );
 };
 
-export default Header;
+const MemoizedHeader = React.memo(Header);
+export default MemoizedHeader;

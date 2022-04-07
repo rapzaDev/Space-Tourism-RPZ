@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 
-import { getHomeData } from '../../services/graphql/queries/home';
-import { Home as HomeType } from '../../services/graphql/types';
+import { usePageData } from '../../hooks/usePageData';
 
 import { 
     Container, 
@@ -13,40 +13,46 @@ import {
 import Header from '../../components/Header';
 
 function Home() {
-    const [data, setData] = useState<HomeType>({} as HomeType)
+    const location = useLocation();
 
-    useEffect(() => {
-        const setHomeData = async () => {
-            const data = await getHomeData();
+    const pageData = usePageData(location.pathname);
 
-            console.log(data);
+    const verification = ( pageData?.home?.description ) ? true : false;
 
-            setData(data);
-        }
+    if (verification)
+    {
+        const home = pageData?.home;
 
-       setHomeData();
-    }, []);
+        return(
+            <Container id="main-page">
+                <Header/>
 
-    return(
+                <Main className="main">
+                    <Section className="section">
+                        <h5>{home?.h5}</h5>
+                        <h1>{home?.h1}</h1>
+                        <p> {home?.description}</p>
+                    </Section>
+
+                    <SideContainer className="side-container">
+                            <button>
+                                <span>explore</span>
+                                <div className="explore-hover" />
+                            </button>
+                    </SideContainer>
+                </Main>
+            </Container>
+        );
+    }
+
+    else return  (
         <Container id="main-page">
             <Header />
-
-            <Main className="main">
-                <Section className="section">
-                    <h5>{data.h5}</h5>
-                    <h1>{data.h1}</h1>
-                    <p> {data.description}</p>
-                </Section>
-
-                <SideContainer className="side-container">
-                        <button>
-                            <span>explore</span>
-                            <div className="explore-hover" />
-                        </button>
-                </SideContainer>
-            </Main>
+            <div className="loading-container">
+                <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>    
+            </div>
         </Container>
-    );
+    )
 };
 
 export default Home;

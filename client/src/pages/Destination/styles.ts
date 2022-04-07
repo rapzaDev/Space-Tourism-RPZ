@@ -9,6 +9,13 @@ export const Container = styled.div`
 
   height: 100%;
   width: 100%;
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+
+    height: 100vh;
+  }
 `;
 
 export const Main = styled.main`

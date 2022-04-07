@@ -9,6 +9,14 @@ export const Container = styled.div`
 
   height: 100%;
   width: 100%;
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+
+    height: 100vh;
+  }
+
 `;
 
 export const Main = styled.main`
@@ -20,7 +28,6 @@ export const Main = styled.main`
 
   width: 100%;
 
-  padding: 0 7.3rem 7.8rem 10.3rem;
   padding: 0 0 7.8rem 10.3rem;
 `;
 

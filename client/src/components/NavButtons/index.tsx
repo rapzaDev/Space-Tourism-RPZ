@@ -1,10 +1,20 @@
+import React from 'react';
 import { useCallback, useState } from 'react';
 
 import NavButton from '../NavButton';
 
 import { Container } from './styles';
 
-function NavButtons() {
+export type NavButtonsType = {
+    title: string;
+}
+
+type Props = {
+    origin: string;
+    buttons: NavButtonsType[];
+}
+
+function NavButtons({ origin, buttons }: Props) {
     const [activeButton, setActiveButton] = useState('home');
 
     const handleClickButton = useCallback((title: string) => {
@@ -13,32 +23,35 @@ function NavButtons() {
     
     return(
         <Container id="nav-buttons">
-            <NavButton 
-                number="00" 
-                title="home"
-                activeButton={activeButton}
-                onClick={handleClickButton}
-            />
-            <NavButton 
-                number="01" 
-                title="destination"
-                activeButton={activeButton}
-                onClick={handleClickButton}
-            />
-            <NavButton 
-                number="02" 
-                title="crew"
-                activeButton={activeButton}
-                onClick={handleClickButton}
-            />
-            <NavButton 
-                number="03" 
-                title="technology"
-                activeButton={activeButton}
-                onClick={handleClickButton}
-            />
-        </Container>
+            {buttons.map( button => {
+                if ( origin === 'header') {
+
+                    const value = buttons.findIndex(target => target.title === button.title);
+
+                    return(
+                        <NavButton 
+                            key={button.title}
+                            number={`0${value}`}
+                            title={button.title}
+                            activeButton={activeButton}
+                            onClick={handleClickButton}
+                        />
+                    );
+                } else {
+                    return(
+                        <NavButton
+                            key={button.title} 
+                            title={button.title}
+                            activeButton={activeButton}
+                            onClick={handleClickButton}
+                        />
+                    );
+                }
+            })}
+        </Container>  
     );
 };
 
-export default NavButtons;
+const MemoizedNavButtons = React.memo(NavButtons);
+
+export default MemoizedNavButtons;
