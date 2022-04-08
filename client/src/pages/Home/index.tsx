@@ -2,7 +2,7 @@ import { useCallback, useContext } from 'react';
 import ReactLoading from 'react-loading';
 
 import { usePageData } from '../../hooks/usePageData';
-import { CategoriesContext } from '../../contexts/categories';
+import { NavButtonsContext } from '../../contexts/navButtons';
 
 import Header from '../../components/Header';
 import HomeContent from '../HomeContent';
@@ -14,7 +14,7 @@ import {
 
 
 function Home() {
-    const {category} = useContext(CategoriesContext);
+    const {category} = useContext(NavButtonsContext);
 
     const pageData = usePageData(category);
 

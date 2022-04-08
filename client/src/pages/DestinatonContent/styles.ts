@@ -23,9 +23,10 @@ export const Main = styled.main`
   display: flex;
   align-items: center;
   
-  gap: 24.125rem;
+  gap: 9.8125rem;
 
   width: 100%;
+  height: 40.875rem;
 
   padding: 0 0 7.8rem 10.3rem;
 `;
@@ -34,7 +35,7 @@ export const SideContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  div:first-child {
+  .side-title {
     display: flex;
     gap: 1.75rem;
     margin-bottom: 6rem;
@@ -54,7 +55,7 @@ export const SideContainer = styled.div`
     }
   }
 
-  div + div{
+  .image-container{
     margin-left: 4rem;
 
     img {
@@ -73,10 +74,6 @@ export const Section = styled.section`
 
   gap: 1.5rem;
 
-  nav {
-    display: flex;
-    align-items: center;
-  }
 
 
 `;

@@ -6,18 +6,18 @@ import {
 
 import Home from '../pages/Home';
 
-import { CategoriesContextProvider } from '../contexts/categories';
+import { NavButtonsContextProvider } from '../contexts/navButtons';
 
 
 function Router() {
     return(
-        <CategoriesContextProvider>
+        <NavButtonsContextProvider>
             <BrowserRouter>
                 <Routes>
                     <Route  index element={ <Home /> }/>
                 </Routes>
             </BrowserRouter>
-        </CategoriesContextProvider>
+        </NavButtonsContextProvider>
     );
 };
 

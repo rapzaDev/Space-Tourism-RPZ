@@ -1,6 +1,6 @@
 import React, { useContext, useCallback } from 'react';
 
-import { CategoriesContext } from '../../contexts/categories';
+import { NavButtonsContext } from '../../contexts/navButtons';
 
 import NavButton from '../NavButton';
 
@@ -16,11 +16,20 @@ type Props = {
 }
 
 function NavButtons({ origin, buttons }: Props) {
-    const {category, setCategory} = useContext(CategoriesContext);
+    const {
+        category, 
+        setCategory,
+        planet,
+        setPlanet
+    } = useContext(NavButtonsContext);
 
-    const handleClickButton = useCallback((title: string) => {
+    const handleClickCategoryButton = useCallback((title: string) => {
         setCategory(title);
     }, [category]);
+
+    const handleClickPlanetButton = useCallback((title: string) => {
+        setPlanet(title);
+    }, [planet]);
 
     return(
         <Container id="nav-buttons">
@@ -35,7 +44,7 @@ function NavButtons({ origin, buttons }: Props) {
                             number={`0${value}`}
                             title={button.title}
                             activeButton={category}
-                            onClick={() => handleClickButton(button.title)}
+                            onClick={() => handleClickCategoryButton(button.title)}
                         />
                     );
                 } else {
@@ -43,8 +52,8 @@ function NavButtons({ origin, buttons }: Props) {
                         <NavButton
                             key={button.title} 
                             title={button.title}
-                            activeButton={category}
-                            onClick={() => handleClickButton(button.title)}
+                            activeButton={planet}
+                            onClick={() => handleClickPlanetButton(button.title)}
                         />
                     );
                 }

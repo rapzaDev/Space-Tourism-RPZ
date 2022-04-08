@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
+import { getPlanetsData } from '../../services/graphql/queries/planets';
 import { Destination } from '../../services/graphql/types';
+
+import NavButtons, { NavButtonsType } from '../../components/NavButtons';
 
 import { 
     Container, 
@@ -16,16 +19,35 @@ type Props = {
 }
 
 function ContentContainer({destination, image}: Props) {
+    const [planets, setPlanets] = useState<NavButtonsType[]>([]);
+
+    const getPlanets = useCallback(async () => {
+        const planets = await getPlanetsData();
+
+        setPlanets(planets);
+    }, [planets])
+
+    useEffect(() => {
+
+        let isCancelled = false;
+        
+        if (!isCancelled) getPlanets();
+
+        return () => {
+            isCancelled = true;
+        }
+    }, [])
+
     return(
         <Container id="main-page">
             <Main className="main">
                 <SideContainer className="side-container">
-                    <div>
+                    <div className="side-title">
                         <span>01</span>
                         <span>pick your destination</span>
                     </div>
 
-                    <div>
+                    <div className="image-container">
                         <img 
                             src={image}
                             alt="Planet image"                                                  
@@ -34,12 +56,7 @@ function ContentContainer({destination, image}: Props) {
                 </SideContainer>
 
                 <Section className="section">
-                    <nav>
-                        <button>moon</button>
-                        <button>mars</button>
-                        <button>europa</button>
-                        <button>titan</button>
-                    </nav>
+                    <NavButtons origin="destination" buttons={planets}/>
 
                     <h1>{destination?.name}</h1>
                     <p>{destination?.description}</p>
