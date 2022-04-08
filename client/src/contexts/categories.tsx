@@ -12,17 +12,8 @@ type CategoryContextType = {
 export const CategoriesContext = createContext({} as CategoryContextType);
 
 function CategoriesContextProvider({children}: ContextProviderProps) {
-    const [category, setCategory] = useState('home');
-
-    // const handleClickCategory = useCallback((title: string) => {
-    //     setCategory(title);
-    // }, [category]);
-
-    // function handleClickCategory(title: string) {
-    //     setCategory(title);
-    // }
+    const [category, setCategory] = useState('home');    
     
-
     return (
         <CategoriesContext.Provider value={{category, setCategory}}>
             {children}

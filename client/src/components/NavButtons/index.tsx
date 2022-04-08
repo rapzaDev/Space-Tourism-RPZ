@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { useCallback, useState } from 'react';
+import React, { useContext, useCallback } from 'react';
 
 import { CategoriesContext } from '../../contexts/categories';
 
@@ -19,14 +18,9 @@ type Props = {
 function NavButtons({ origin, buttons }: Props) {
     const {category, setCategory} = useContext(CategoriesContext);
 
-    const [activeButton, setActiveButton] = useState('home');
-
     const handleClickButton = useCallback((title: string) => {
-        // setActiveButton(title);
         setCategory(title);
-    }, [activeButton]);
-
-    console.log('console category', category);
+    }, [category]);
 
     return(
         <Container id="nav-buttons">

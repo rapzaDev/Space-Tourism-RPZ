@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom';
 
 import Home from '../pages/Home';
-import Destination from '../pages/Destination';
 
 import { CategoriesContextProvider } from '../contexts/categories';
 
@@ -16,7 +15,6 @@ function Router() {
             <BrowserRouter>
                 <Routes>
                     <Route  index element={ <Home /> }/>
-                    <Route  path="/destination" element={ <Destination /> }/>
                 </Routes>
             </BrowserRouter>
         </CategoriesContextProvider>

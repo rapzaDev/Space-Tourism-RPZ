@@ -1,50 +1,71 @@
-import { useLocation } from 'react-router-dom';
+import { useCallback, useContext } from 'react';
 import ReactLoading from 'react-loading';
 
 import { usePageData } from '../../hooks/usePageData';
-
-import { 
-    Container, 
-    Main,
-    Section,
-    SideContainer,
-} from './styles';
+import { CategoriesContext } from '../../contexts/categories';
 
 import Header from '../../components/Header';
+import HomeContent from '../HomeContent';
+import DestinatonContent from '../DestinatonContent';
+
+import { 
+    Container,
+} from './styles';
+
 
 function Home() {
-    const location = useLocation();
+    const {category} = useContext(CategoriesContext);
 
-    const pageData = usePageData(location.pathname);
+    const pageData = usePageData(category);
 
-    const verification = ( pageData?.home?.description ) ? true : false;
+    const getVerification = useCallback((categoryName: string) => {
+        let verification: boolean = false; 
 
-    if (verification)
+        if (categoryName === 'home') {
+            verification = ( pageData?.home?.description ) ? true : false;             
+            return verification;
+        } 
+
+        if (categoryName === 'destination') {
+            verification = ( pageData?.destination?.description ) ? true : false;             
+            return verification;
+        } 
+        
+        return false;
+
+    }, [pageData]);
+
+    function getData(categoryName: string) {
+        if ((categoryName === 'home') && pageData?.home) {
+            return { home: pageData.home };
+        }
+
+        if ((categoryName === 'destination') && pageData?.destination) {
+            return {
+                destination: pageData.destination,
+                image: pageData.image,
+            }
+        }
+    }
+
+    const data = getData(category);
+
+    if ( getVerification(category) )
     {
-        const home = pageData?.home;
-
         return(
             <Container id="main-page">
-                <Header/>
+                <Header />
+                { ( (category === 'home') && data?.home ) && <HomeContent home={data.home}/> }
 
-                <Main className="main">
-                    <Section className="section">
-                        <h5>{home?.h5}</h5>
-                        <h1>{home?.h1}</h1>
-                        <p> {home?.description}</p>
-                    </Section>
-
-                    <SideContainer className="side-container">
-                            <button>
-                                <span>explore</span>
-                                <div className="explore-hover" />
-                            </button>
-                    </SideContainer>
-                </Main>
+                { ( (category === 'destination') && data?.destination ) 
+                    && <DestinatonContent 
+                            destination={data.destination}
+                            image={data.image}
+                        /> 
+                }
             </Container>
         );
     }
-
     else return  (
         <Container id="main-page">
             <Header />
