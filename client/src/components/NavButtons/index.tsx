@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useCallback, useState } from 'react';
+
+import { CategoriesContext } from '../../contexts/categories';
 
 import NavButton from '../NavButton';
 
@@ -15,12 +17,17 @@ type Props = {
 }
 
 function NavButtons({ origin, buttons }: Props) {
+    const {category, setCategory} = useContext(CategoriesContext);
+
     const [activeButton, setActiveButton] = useState('home');
 
     const handleClickButton = useCallback((title: string) => {
-        setActiveButton(title);
+        // setActiveButton(title);
+        setCategory(title);
     }, [activeButton]);
-    
+
+    console.log('console category', category);
+
     return(
         <Container id="nav-buttons">
             {buttons.map( button => {
@@ -33,8 +40,8 @@ function NavButtons({ origin, buttons }: Props) {
                             key={button.title}
                             number={`0${value}`}
                             title={button.title}
-                            activeButton={activeButton}
-                            onClick={handleClickButton}
+                            activeButton={category}
+                            onClick={() => handleClickButton(button.title)}
                         />
                     );
                 } else {
@@ -42,8 +49,8 @@ function NavButtons({ origin, buttons }: Props) {
                         <NavButton
                             key={button.title} 
                             title={button.title}
-                            activeButton={activeButton}
-                            onClick={handleClickButton}
+                            activeButton={category}
+                            onClick={() => handleClickButton(button.title)}
                         />
                     );
                 }

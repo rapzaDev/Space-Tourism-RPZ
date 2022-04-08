@@ -14,7 +14,6 @@ import {
 } from './styles';
 
 function Header() {
-
     const [headerButtons, setHeaderButtons] = useState<NavButtonsType[]>([]);
 
     const getCategories = useCallback(async () => {
@@ -30,8 +29,17 @@ function Header() {
     }, [headerButtons])
 
     useEffect(() => {
-        getCategories();
+
+        let isCancelled = false;
+        
+        if (!isCancelled) getCategories();
+
+        return () => {
+            isCancelled = true;
+        }
     }, [])
+
+    console.log('console', headerButtons);
 
     return (
         <Container id="header">

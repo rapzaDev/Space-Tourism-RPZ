@@ -7,15 +7,19 @@ import {
 import Home from '../pages/Home';
 import Destination from '../pages/Destination';
 
+import { CategoriesContextProvider } from '../contexts/categories';
+
 
 function Router() {
     return(
-        <BrowserRouter>
-            <Routes>
-                <Route  index element={ <Home /> }/>
-                <Route  path="/destination" element={ <Destination /> }/>
-            </Routes>
-        </BrowserRouter>
+        <CategoriesContextProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route  index element={ <Home /> }/>
+                    <Route  path="/destination" element={ <Destination /> }/>
+                </Routes>
+            </BrowserRouter>
+        </CategoriesContextProvider>
     );
 };
 
