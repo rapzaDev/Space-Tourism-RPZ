@@ -1,4 +1,30 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+import homeDesktop from '../../assets/home/background-home-desktop.jpg'
+
+import destinationDesktop from '../../assets/destination/background-destination-desktop.jpg'
+
+import crewDesktop from '../../assets/crew/background-crew-desktop.jpg'
+
+type HomeCategory = {
+  category: string;
+}
+
+export const Background = styled.div<HomeCategory>`
+  height: 100%;
+  width: 100%;
+
+  ${(props) => props.category === 'home' && css`
+      background: url(${homeDesktop}) no-repeat;
+  ` || props.category === 'destination' && css`
+      background: url(${destinationDesktop}) no-repeat;
+  ` || props.category === 'crew' && css`
+      background: url(${crewDesktop}) no-repeat;
+  `}
+
+  background-attachment: fixed;
+  background-size: 100% 100vh;
+`;
 
 export const Container = styled.div`
   position: relative;
@@ -16,5 +42,4 @@ export const Container = styled.div`
 
     height: 100vh;
   }
-
 `;

@@ -7,7 +7,7 @@ export const Container = styled.div`
 
   gap: 15.7rem;
 
-  height: 100%;
+  height: 100vh;
   width: 100%;
 
   .loading-container {
@@ -26,7 +26,7 @@ export const Main = styled.main`
   
   gap: 24.125rem;
 
-  width: 100%;
+  height: 40.875rem;
 
   padding: 0 0 7.8rem 10.3rem;
 `;

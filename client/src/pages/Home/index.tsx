@@ -10,11 +10,14 @@ import DestinatonContent from '../DestinatonContent';
 
 import { 
     Container,
+    Background,
 } from './styles';
 
 
 function Home() {
-    const {category} = useContext(NavButtonsContext);
+    const {category, planet} = useContext(NavButtonsContext);
+
+    console.log('console PLanet', planet);
 
     const pageData = usePageData(category);
 
@@ -53,26 +56,30 @@ function Home() {
     if ( getVerification(category) )
     {
         return(
-            <Container id="main-page">
-                <Header />
-                { ( (category === 'home') && data?.home ) && <HomeContent home={data.home}/> }
+            <Background category={category}>
+                    <Container id={`main-page_${category}`}>
+                        <Header />
+                        { ( (category === 'home') && data?.home ) && <HomeContent home={data.home}/> }
 
-                { ( (category === 'destination') && data?.destination ) 
-                    && <DestinatonContent 
-                            destination={data.destination}
-                            image={data.image}
-                        /> 
-                }
-            </Container>
+                        { ( (category === 'destination') && data?.destination ) 
+                            && <DestinatonContent 
+                                    destination={data.destination}
+                                    image={data.image}
+                                /> 
+                        }
+                    </Container>
+            </Background>
         );
     }
     else return  (
-        <Container id="main-page">
-            <Header />
-            <div className="loading-container">
-                <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>    
-            </div>
-        </Container>
+        <Background category={category}>
+            <Container id="main-page">
+                <Header />
+                <div className="loading-container">
+                    <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>    
+                </div>
+            </Container>
+        </Background>
     )
 };
 

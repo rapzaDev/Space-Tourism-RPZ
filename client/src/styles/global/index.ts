@@ -12,12 +12,8 @@ export default createGlobalStyle`
         box-sizing: border-box;
     }
 
-    body {
-        #main-page {
-            background: url(${homeDesktop}) no-repeat;
-            background-attachment: fixed;
-            background-size: 100% 100vh;
-        }
+    html {
+        background-color: ${props => props.theme.colors.primary};
     }
 
     //QUERIES

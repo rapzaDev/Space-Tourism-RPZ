@@ -4,20 +4,20 @@ import {
     Route
 } from 'react-router-dom';
 
+import GlobalStyle from '../styles/global';
+
 import Home from '../pages/Home';
-
-import { NavButtonsContextProvider } from '../contexts/navButtons';
-
 
 function Router() {
     return(
-        <NavButtonsContextProvider>
+        <>
+            <GlobalStyle/>
             <BrowserRouter>
                 <Routes>
                     <Route  index element={ <Home /> }/>
                 </Routes>
             </BrowserRouter>
-        </NavButtonsContextProvider>
+        </>
     );
 };
 
