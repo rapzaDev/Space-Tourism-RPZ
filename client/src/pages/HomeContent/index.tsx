@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactLoading from 'react-loading';
 
-import { Home } from '../../services/graphql/types';
 import { useHome } from '../../hooks/useHome';
 
 import { 

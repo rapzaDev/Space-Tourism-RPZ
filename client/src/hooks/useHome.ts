@@ -4,7 +4,6 @@ import { getHomeData } from '../services/graphql/queries/home';
 import { Home as HomeType } from '../services/graphql/types';
 
 export function useHome () {
-    //HOME PAGE STATE:
     const [home, setHome] = useState<HomeType>({} as HomeType);
 
     const setHomeData = async () => {

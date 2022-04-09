@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import ReactLoading from 'react-loading';
 
-import { getPlanetsData } from '../../services/graphql/queries/planets';
 import { Destination } from '../../services/graphql/types';
 
+import { useDestination } from '../../hooks/useDestination';
+
+import { NavButtonsContext, PlanetType } from '../../contexts/navButtons';
+
 import NavButtons from '../../components/NavButtons';
-import { PlanetType } from '../../contexts/navButtons';
 
 import { 
     Container, 
@@ -14,120 +16,37 @@ import {
     SideContainer,
 } from './styles';
 
-
 type Props = {
     destination: Destination;
 }
 
-function ContentContainer({destination}: Props) {
-    console.log('console destination', destination);
+function ContentContainer() {
+    const destination = useDestination();
+    const { planet } = useContext(NavButtonsContext);
 
-    const [planets, setPlanets] = useState<PlanetType[]>([]);
-    const [image, setImage] = useState(() => {
-        if (destination.images) return `${process.env.REACT_APP_DESTINATION_IMAGES_URL}/${destination.images.png}`;
-        else return '';
-    });
+    const getPlanetsData = useCallback((planetsData: Destination[]) => {
+        if (planetsData.length) {
+            const planets = planetsData;
+            const index = planets.findIndex( target => target.id === planet.id );
 
-    const getPlanets = useCallback(async () => {
-        return await getPlanetsData();
-    }, [planets]);
+            const navPlanets = planets.map<PlanetType>( target =>  ({
+                id: target.id,
+                title: target.name
+            }))
 
+            return { 
+                planetData:planets[index],
+                navPlanets
+            };
+        } else return {
+            planetData:{} as Destination,
+            navPlanets: []
+        };
+    }, [planet]);
 
-    function timeout(ms: number) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    }
+    function renderContent(planetsData: Destination[]) {
+        const {planetData, navPlanets} = getPlanetsData(planetsData);
 
-    const getImage = useCallback(async () => {
-        await timeout(1200);    
-
-        const url = `${process.env.REACT_APP_DESTINATION_IMAGES_URL}/${destination.images.png}`
-        return await fetch(url).then(data => data.url);
-    }, [destination.images])
-
-    useEffect(() => {
-
-        let isCancelled = false;
-        
-        if (!isCancelled) {
-            
-            Promise.all( [getPlanets(), getImage()] ).then(
-                data => {
-                    setPlanets(data[0]);
-                    setImage(data[1]);
-                }
-            );
-        }
-
-        return () => {
-            isCancelled = true;
-        }
-    }, [destination.images]);
-
-    const showContent = ( `${process.env.REACT_APP_DESTINATION_IMAGES_URL}/${destination?.images?.png}` === image );
-
-    function renderImage() {
-        return (
-            <div className="image-container">
-                <img 
-                    src={image}
-                    alt="Planet image"                                                  
-                />
-            </div>
-        )
-    }
-
-    function renderImageLoading() {
-        return (
-            <div className="image-container">
-                <ReactLoading 
-                    className="loading" 
-                    type='bars' 
-                    color="#ffffff" 
-                    height={200} 
-                    width={200}
-                />
-            </div>
-        );
-    }
-
-    function renderDestinationInfo() {
-        return (
-            <>
-                <h1>{destination?.name}</h1>
-                <p>{destination?.description}</p>
-            
-                <div className="separator"/>
-
-                <div className="distance-travel">
-                    <div className="distance">
-                        <span>avg.distance</span>
-                        <span>{destination?.distance}</span>
-                    </div>
-
-                    <div className="travel">
-                        <span>est. travel time</span>
-                        <span>{destination?.travel}</span>
-                    </div>
-                </div>
-            </>
-        );
-    }
-
-    function renderDestinationInfoLoading() {
-        return (
-            <div className="image-container">
-                <ReactLoading 
-                    className="loading" 
-                    type='blank' 
-                    color="#ffffff" 
-                    height={200} 
-                    width={200}
-                />
-            </div>
-        );
-    }
-
-    function renderContent() {
         return (
             <Container id="main-page">
                 <Main className="main">
@@ -137,22 +56,50 @@ function ContentContainer({destination}: Props) {
                             <span>pick your destination</span>
                         </div>
 
-                        { (showContent) ? renderImage() : renderImageLoading() }
+                        <div className="image-container">
+                            <img src={""} alt="Planet image"/>
+                        </div>
                     </SideContainer>
 
                     <Section className="section">
-                        <NavButtons origin="destination" buttons={[]} planets={planets} />
+                        <NavButtons origin="destination" buttons={[]} planets={navPlanets} />
 
-                        { (showContent && planets.length) ? renderDestinationInfo() : renderDestinationInfoLoading() }
+                        <h1>{planetData.name}</h1>
+                        <p>{planetData.description}</p>
+                    
+                        <div className="separator"/>
+
+                        <div className="distance-travel">
+                            <div className="distance">
+                                <span>avg.distance</span>
+                                <span>{planetData.distance}</span>
+                            </div>
+
+                            <div className="travel">
+                                <span>est. travel time</span>
+                                <span>{planetData.travel}</span>
+                            </div>
+                        </div>
                     </Section>
                 </Main>
             </Container>
         );
     }
 
-    if (destination.description) return renderContent();
-    else return <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>;
-    // if (showContent) return renderContent();
+    function renderLoading() {
+        return (
+            <Container id="main-page">
+                <Main className="main">
+                    <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>;
+                </Main>
+            </Container>
+        );
+    }
+
+    const planetsData = destination?.planets;
+
+    if (planetsData?.length) return renderContent(planetsData);
+    else return renderLoading();
 };
 
 const DestinatonContent = React.memo(ContentContainer);

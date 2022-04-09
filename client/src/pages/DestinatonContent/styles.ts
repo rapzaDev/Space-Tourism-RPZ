@@ -29,6 +29,12 @@ export const Main = styled.main`
   height: 40.875rem;
 
   padding: 0 0 7.8rem 10.3rem;
+
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 50%;
+  }
 `;
 
 export const SideContainer = styled.div`

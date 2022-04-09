@@ -11,6 +11,13 @@ async function getPlanetsData() {
                 Destinations {
                     id
                     name
+                    description
+                    distance
+                    travel
+                    images {
+                        png
+                        webp
+                    }
                 }
             }
         `
@@ -21,9 +28,16 @@ async function getPlanetsData() {
 
     const destinationsData: Destination[] = Destinations;
 
-    const planets = destinationsData.map( planet => ({
+    const planets = destinationsData.map<Destination>( planet => ({
         id: planet.id,
-        title: planet.name
+        name: planet.name,
+        description: planet.description,
+        distance: planet.distance,
+        travel: planet.travel,
+        images: {
+            png: planet.images.png,
+            webp: planet.images.webp
+        }
     })); 
 
     return planets;
