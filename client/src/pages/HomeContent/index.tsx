@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactLoading from 'react-loading';
 
 import { Home } from '../../services/graphql/types';
+import { useHome } from '../../hooks/useHome';
 
 import { 
     Container, 
@@ -9,13 +11,11 @@ import {
     SideContainer
 } from './styles';
 
+function ContentContainer() {
+    const home = useHome();
 
-type Props = {
-    home: Home;
-}
-
-function ContentContainer({home}: Props) {
-        return(
+    function renderHomeContent() {
+        return (
             <Container>
                 <Main className="main-home">
                     <Section className="section">
@@ -33,6 +33,20 @@ function ContentContainer({home}: Props) {
                 </Main>
             </Container>
         );
+    }
+
+    function renderLoading() {
+        return (
+            <Container>
+                <Main className="main-home">
+                    <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>;
+                </Main>
+        </Container>
+        );
+    }
+
+    if(home?.description) return renderHomeContent();
+    else return renderLoading();
 };
 
 const HomeContent = React.memo(ContentContainer);

@@ -1,8 +1,8 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import ReactLoading from 'react-loading';
 
 import { usePageData } from '../../hooks/usePageData';
-import { NavButtonsContext } from '../../contexts/navButtons';
+import { NavButtonsContext, PlanetType } from '../../contexts/navButtons';
 
 import Header from '../../components/Header';
 import HomeContent from '../HomeContent';
@@ -17,9 +17,7 @@ import {
 function Home() {
     const {category, planet} = useContext(NavButtonsContext);
 
-    console.log('console PLanet', planet);
-
-    const pageData = usePageData(category);
+    const pageData = usePageData(category, planet);
 
     const getVerification = useCallback((categoryName: string) => {
         let verification: boolean = false; 
@@ -44,43 +42,54 @@ function Home() {
         }
 
         if ((categoryName === 'destination') && pageData?.destination) {
-            return {
-                destination: pageData.destination,
-                image: pageData.image,
-            }
+            return { destination: pageData.destination }
         }
     }
 
     const data = getData(category);
 
-    if ( getVerification(category) )
-    {
-        return(
-            <Background category={category}>
-                    <Container id={`main-page_${category}`}>
-                        <Header />
-                        { ( (category === 'home') && data?.home ) && <HomeContent home={data.home}/> }
-
-                        { ( (category === 'destination') && data?.destination ) 
-                            && <DestinatonContent 
-                                    destination={data.destination}
-                                    image={data.image}
-                                /> 
-                        }
-                    </Container>
-            </Background>
-        );
-    }
-    else return  (
+    return(
         <Background category={category}>
-            <Container id="main-page">
-                <Header />
-                <div className="loading-container">
-                    <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>    
-                </div>
-            </Container>
+                <Container id={`main-page_${category}`}>
+                    <Header />
+                    { (category === 'home') && <HomeContent /> }
+
+                    { ( (category === 'destination') && data?.destination ) 
+                        && <DestinatonContent 
+                                destination={data.destination}
+                            /> 
+                    }
+                </Container>
         </Background>
-    )
+    );
+
+    // if ( getVerification(category) )
+    // {
+    //     return(
+    //         <Background category={category}>
+    //                 <Container id={`main-page_${category}`}>
+    //                     <Header />
+    //                     { ( (category === 'home') && data?.home ) && <HomeContent home={data.home}/> }
+
+    //                     { ( (category === 'destination') && data?.destination ) 
+    //                         && <DestinatonContent 
+    //                                 destination={data.destination}
+    //                             /> 
+    //                     }
+    //                 </Container>
+    //         </Background>
+    //     );
+    // }
+    // else return  (
+    //     <Background category={category}>
+    //         <Container id="main-page">
+    //             <Header />
+    //             <div className="loading-container">
+    //                 <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>    
+    //             </div>
+    //         </Container>
+    //     </Background>
+    // )
 };
 
 export default Home;

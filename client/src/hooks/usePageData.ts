@@ -5,52 +5,49 @@ import { Home as HomeType } from '../services/graphql/types';
 
 import { getDestinationData } from '../services/graphql/queries/destination';
 import { Destination as DestinationType } from '../services/graphql/types';
+import { PlanetType } from "../contexts/navButtons";
 
-export function usePageData (category: string, planetID?: number) {
+export function usePageData (category: string, planetData: PlanetType) {
     //HOME PAGE STATE:
     const [home, setHome] = useState<HomeType>({} as HomeType);
 
     //DESTINATION PAGE STATE:
     const [destination, setDestination] = useState<DestinationType>({} as DestinationType);
-    const [image, setImage] = useState("");
+    // const [image, setImage] = useState("");
+    const [planet, setPlanet] = useState<PlanetType>({id: 1,title: 'Moon'});
 
     function timeout(ms: number) {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    const setData = async (categoryName: string) => {
-
+    const setHomeData = async () => {
         await timeout(1200);
 
-        if (categoryName === 'home') {
-            const data = await getHomeData();    
-            setHome(data);
+        const data = await getHomeData();    
+        setHome(data);
 
-            return;
-        }
-
-        if (categoryName === 'destination') {
-            const planet = planetID ? planetID : 1;
-
-            const data = await getDestinationData(planet);
-            setDestination(data);
-
-            if (data.images){
-                const url = `${process.env.REACT_APP_DESTINATION_IMAGES_URL}/${data.images.png}`;
-                fetch(url).then(response => response.json()).then(data => {
-                    setImage(data.download_url);
-                })
-            }
-
-            return;
-        }
+        return;
     };
 
-    useEffect(() => {
-        if (category === 'home') setData(category);
+    const setDestinationData = async() => {
+        await timeout(1200);
 
-        if (category === 'destination') setData(category);
-    },[category]);
+        const currentPlanet = planetData.id ? planetData.id : 1;
+
+        const data = await getDestinationData(currentPlanet);
+        setDestination(data);
+        
+        return;
+    }
+
+    useEffect(() => {
+        if (category === 'home') setHomeData();
+
+        if (category === 'destination') {
+            if (planetData.id !== planet.id) setPlanet(planetData)    
+            setDestinationData();
+        }
+    },[category, planetData]);
 
     const page = {
         home: (home) ? true : false,
@@ -68,7 +65,7 @@ export function usePageData (category: string, planetID?: number) {
     if (( page.destination && (category === 'destination') )) {
         return {
             destination,
-            image
+            // image
         };
     }
 };

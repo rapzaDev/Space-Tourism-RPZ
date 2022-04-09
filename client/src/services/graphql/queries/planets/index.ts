@@ -9,6 +9,7 @@ async function getPlanetsData() {
         query: gql`
             query {
                 Destinations {
+                    id
                     name
                 }
             }
@@ -21,6 +22,7 @@ async function getPlanetsData() {
     const destinationsData: Destination[] = Destinations;
 
     const planets = destinationsData.map( planet => ({
+        id: planet.id,
         title: planet.name
     })); 
 

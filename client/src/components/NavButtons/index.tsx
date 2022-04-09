@@ -1,6 +1,7 @@
 import React, { useContext, useCallback } from 'react';
 
-import { NavButtonsContext } from '../../contexts/navButtons';
+import { NavButtonsContext, PlanetType } from '../../contexts/navButtons';
+
 
 import NavButton from '../NavButton';
 
@@ -13,9 +14,10 @@ export type NavButtonsType = {
 type Props = {
     origin: string;
     buttons: NavButtonsType[];
+    planets: PlanetType[];
 }
 
-function NavButtons({ origin, buttons }: Props) {
+function NavButtons({ origin, buttons, planets }: Props) {
     const {
         category, 
         setCategory,
@@ -27,37 +29,44 @@ function NavButtons({ origin, buttons }: Props) {
         setCategory(title);
     }, [category]);
 
-    const handleClickPlanetButton = useCallback((title: string) => {
-        setPlanet(title);
+    const handleClickPlanetButton = useCallback((navPlanet: PlanetType) => {
+        setPlanet(navPlanet);
     }, [planet]);
+
+    function renderHeaderCategories() {
+        return buttons.map( button => {
+            const value = buttons.findIndex(target => target.title === button.title);
+
+            return(
+                <NavButton 
+                    key={button.title}
+                    number={`0${value}`}
+                    title={button.title}
+                    activeButton={category}
+                    onClick={() => handleClickCategoryButton(button.title)}
+                />
+            );
+        });
+    }
+
+    function renderPlanets() {
+        return planets.map( navPlanet => {
+
+            return(
+                <NavButton
+                    key={navPlanet.title} 
+                    title={navPlanet.title}
+                    activeButton={planet.title}
+                    onClick={() => handleClickPlanetButton(navPlanet)}
+                />
+            );
+        });
+    }
 
     return(
         <Container id="nav-buttons">
-            {buttons.map( button => {
-                if ( origin === 'header') {
-
-                    const value = buttons.findIndex(target => target.title === button.title);
-
-                    return(
-                        <NavButton 
-                            key={button.title}
-                            number={`0${value}`}
-                            title={button.title}
-                            activeButton={category}
-                            onClick={() => handleClickCategoryButton(button.title)}
-                        />
-                    );
-                } else {
-                    return(
-                        <NavButton
-                            key={button.title} 
-                            title={button.title}
-                            activeButton={planet}
-                            onClick={() => handleClickPlanetButton(button.title)}
-                        />
-                    );
-                }
-            })}
+            {( origin === 'header') && renderHeaderCategories()}
+            {( origin === 'destination') && renderPlanets()}
         </Container>  
     );
 };

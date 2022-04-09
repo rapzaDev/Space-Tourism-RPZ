@@ -7,16 +7,9 @@ export const Container = styled.div`
 
   gap: 15.7rem;
 
-  height: 100vh;
+  height: 100%;
+  max-height: 900px;
   width: 100%;
-
-  .loading-container {
-    display: flex;
-    justify-content: center;
-
-    height: 100vh;
-  }
-
 `;
 
 export const Main = styled.main`
@@ -29,6 +22,12 @@ export const Main = styled.main`
   height: 40.875rem;
 
   padding: 0 0 7.8rem 10.3rem;
+
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 50%;
+  }
 `;
 
 export const Section = styled.section`
