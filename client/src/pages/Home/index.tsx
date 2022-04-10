@@ -6,13 +6,20 @@ import Header from '../../components/Header';
 
 import HomeContent from '../../contents/HomeContent';
 import DestinatonContent from '../../contents/DestinatonContent';
+import CrewContent from '../../contents/CrewContent';
 
 import { 
     Container,
 } from './styles';
 
 function Home() {
-    const { category, explore } = useContext(HomeContext);
+    const { category } = useContext(HomeContext);
+
+    function renderContent() {
+        if (category === 'home') return <HomeContent />;
+        if (category === 'destination') return <DestinatonContent />;
+        if (category === 'crew') return <CrewContent />;
+    }
 
     return(
         <Container 
@@ -20,9 +27,7 @@ function Home() {
             category={category}
         >
             <Header />
-            { (category === 'home') && <HomeContent /> }
-
-            { ( (category === 'destination') && <DestinatonContent /> )}
+            { renderContent() }
         </Container>
     );
 };

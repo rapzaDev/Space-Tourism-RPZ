@@ -14,7 +14,6 @@ type HomeContextType = {
     setCategory: React.Dispatch<React.SetStateAction<string>>;
     planet: PlanetType;
     setPlanet: React.Dispatch<React.SetStateAction<PlanetType>>;
-    explore: boolean;
     setExplore: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -30,7 +29,6 @@ function HomeContextProvider({children}: ContextProviderProps) {
         setCategory, 
         planet, 
         setPlanet,
-        explore,
         setExplore
     }
 

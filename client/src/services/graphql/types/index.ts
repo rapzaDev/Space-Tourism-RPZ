@@ -5,6 +5,14 @@ export type Categories = {
     technology: string;
 };
 
+export type Crew = {
+    id: number;
+    name: string;
+    images: Image;
+    role: string;
+    bio: string;
+};
+
 export type Image = {
     png: string;
     webp: string;
