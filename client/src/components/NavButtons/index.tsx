@@ -1,6 +1,6 @@
 import React, { useContext, useCallback } from 'react';
 
-import { NavButtonsContext, PlanetType } from '../../contexts/navButtons';
+import { HomeContext, PlanetType } from '../../contexts/home';
 
 
 import NavButton from '../NavButton';
@@ -23,7 +23,7 @@ function NavButtons({ origin, buttons, planets }: Props) {
         setCategory,
         planet,
         setPlanet
-    } = useContext(NavButtonsContext);
+    } = useContext(HomeContext);
 
     const handleClickCategoryButton = useCallback((title: string) => {
         setCategory(title);

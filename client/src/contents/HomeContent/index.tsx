@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactLoading from 'react-loading';
 
 import { useHome } from '../../hooks/useHome';
+import { HomeContext } from '../../contexts/home';
 
 import { 
     Container, 
@@ -12,6 +13,7 @@ import {
 
 function ContentContainer() {
     const home = useHome();
+    const { setExplore } = useContext(HomeContext);
 
     function renderHomeContent() {
         return (
@@ -24,7 +26,7 @@ function ContentContainer() {
                         </Section>
 
                     <SideContainer className="side-container">
-                        <button>
+                        <button onClick={() => setExplore(true)}>
                             <span>explore</span>
                             <div className="explore-hover" />
                         </button>

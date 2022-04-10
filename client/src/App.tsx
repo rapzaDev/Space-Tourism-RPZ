@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/client';
 
-import { NavButtonsContextProvider } from './contexts/navButtons';
+import { HomeContextProvider } from './contexts/home';
 
 // Routes
 import Router from './routes';
@@ -14,9 +14,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={Theme}>
-        <NavButtonsContextProvider>
+        <HomeContextProvider>
             <Router />
-        </NavButtonsContextProvider>
+        </HomeContextProvider>
       </ThemeProvider>
     </ApolloProvider>
   );

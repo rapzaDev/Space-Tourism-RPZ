@@ -1,11 +1,11 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import ReactLoading from 'react-loading';
 
 import { Destination } from '../../services/graphql/types';
 
 import { useDestination } from '../../hooks/useDestination';
 
-import { NavButtonsContext, PlanetType } from '../../contexts/navButtons';
+import { HomeContext, PlanetType } from '../../contexts/home';
 
 import NavButtons from '../../components/NavButtons';
 
@@ -18,7 +18,11 @@ import {
 
 function ContentContainer() {
     const planetsData = useDestination();
-    const { planet } = useContext(NavButtonsContext);
+    const { planet, setExplore } = useContext(HomeContext);
+
+    useEffect(() => {
+        setExplore(false);
+    }, []);
 
     const getPlanetsData = useCallback((planetsData: Destination[]) => {
         if (planetsData.length) {

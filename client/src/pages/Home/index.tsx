@@ -1,17 +1,18 @@
 import { useContext } from 'react';
 
-import { NavButtonsContext } from '../../contexts/navButtons';
+import { HomeContext } from '../../contexts/home';
 
 import Header from '../../components/Header';
-import HomeContent from '../HomeContent';
-import DestinatonContent from '../DestinatonContent';
+
+import HomeContent from '../../contents/HomeContent';
+import DestinatonContent from '../../contents/DestinatonContent';
 
 import { 
     Container,
 } from './styles';
 
 function Home() {
-    const {category} = useContext(NavButtonsContext);
+    const { category, explore } = useContext(HomeContext);
 
     return(
         <Container 
