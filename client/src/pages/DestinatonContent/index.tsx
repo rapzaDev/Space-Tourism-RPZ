@@ -21,7 +21,7 @@ type Props = {
 }
 
 function ContentContainer() {
-    const destination = useDestination();
+    const planetsData = useDestination();
     const { planet } = useContext(NavButtonsContext);
 
     const getPlanetsData = useCallback((planetsData: Destination[]) => {
@@ -95,8 +95,6 @@ function ContentContainer() {
             </Container>
         );
     }
-
-    const planetsData = destination?.planets;
 
     if (planetsData?.length) return renderContent(planetsData);
     else return renderLoading();
