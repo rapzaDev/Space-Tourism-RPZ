@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext } from 'react';
 import ReactLoading from 'react-loading';
 
 import { Destination } from '../../services/graphql/types';
@@ -15,10 +15,6 @@ import {
     Section,
     SideContainer,
 } from './styles';
-
-type Props = {
-    destination: Destination;
-}
 
 function ContentContainer() {
     const planetsData = useDestination();
@@ -47,6 +43,8 @@ function ContentContainer() {
     function renderContent(planetsData: Destination[]) {
         const {planetData, navPlanets} = getPlanetsData(planetsData);
 
+        const image = planetData.images.png;
+
         return (
             <Container id="main-page">
                 <Main className="main">
@@ -57,7 +55,7 @@ function ContentContainer() {
                         </div>
 
                         <div className="image-container">
-                            <img src={""} alt="Planet image"/>
+                            <img src={image} alt="Planet image"/>
                         </div>
                     </SideContainer>
 
