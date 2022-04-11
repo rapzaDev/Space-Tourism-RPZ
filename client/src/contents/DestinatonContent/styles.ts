@@ -4,44 +4,25 @@ export const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-
-  gap: 15.7rem;
-
-  height: 100vh;
-  width: 100%;
-
-  .loading-container {
-    display: flex;
-    justify-content: center;
-
-    height: 100vh;
-  }
 `;
 
 export const Main = styled.main`
   position: relative;
   display: flex;
-  align-items: center;
   
   gap: 9.8125rem;
 
-  width: 100%;
-  height: 40.875rem;
+  padding-left: 10.3rem;
 
-  padding: 0 0 7.8rem 10.3rem;
-
-  .loading {
-    position: absolute;
-    top: 0;
-    left: 50%;
-  }
+  margin-top: 4.75rem;
+  margin-bottom: 7rem;
 `;
 
 export const SideContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  .side-title {
+  .title {
     display: flex;
     gap: 1.75rem;
     margin-bottom: 6rem;
@@ -77,9 +58,7 @@ export const Section = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
-  margin-right: 10.1875rem;
+  justify-content: flex-end;
 
   width: 27.8rem;
 

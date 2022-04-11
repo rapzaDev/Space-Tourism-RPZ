@@ -1,13 +1,12 @@
 import React, { useCallback, useContext, useEffect } from 'react';
-import ReactLoading from 'react-loading';
 
-import { Destination } from '../../services/graphql/types';
+import { Crew } from '../../services/graphql/types';
 
-import { useDestination } from '../../hooks/useDestination';
+import { useCrew } from '../../hooks/useCrew';
 
-import { HomeContext, PlanetType } from '../../contexts/home';
+import { HomeContext } from '../../contexts/home';
 
-import NavButtons from '../../components/NavButtons';
+import Loading from '../../components/Loading';
 
 import { 
     Container, 
@@ -17,72 +16,51 @@ import {
 } from './styles';
 
 function ContentContainer() {
-    const planetsData = useDestination();
-    const { planet, setExplore } = useContext(HomeContext);
+    const crewData = useCrew();
+    const { setExplore } = useContext(HomeContext);
 
     useEffect(() => {
         setExplore(false);
     }, []);
 
-    const getPlanetsData = useCallback((planetsData: Destination[]) => {
-        if (planetsData.length) {
-            const planets = planetsData;
-            const index = planets.findIndex( target => target.id === planet.id );
-
-            const navPlanets = planets.map<PlanetType>( target =>  ({
-                id: target.id,
-                title: target.name
-            }))
+    const getCrewData = useCallback((crew: Crew[]) => {
+        if (crew.length) {
+            const crewMembers = crew;
+            const index = crewMembers.findIndex( member => member.id === 1 );
 
             return { 
-                planetData:planets[index],
-                navPlanets
+                crewMember: crewMembers[index],
             };
         } else return {
-            planetData:{} as Destination,
-            navPlanets: []
+            crewMember:{} as Crew,
         };
-    }, [planet]);
+    }, []);
 
-    function renderContent(planetsData: Destination[]) {
-        const {planetData, navPlanets} = getPlanetsData(planetsData);
+    function renderContent(crew: Crew[]) {
+        const { crewMember } = getCrewData(crew);
 
-        const image = planetData.images.png;
+        const image = crewMember.images.png;
 
         return (
             <Container id="main-page">
                 <Main className="main">
-                    <SideContainer className="side-container">
-                        <div className="side-title">
-                            <span>01</span>
-                            <span>pick your destination</span>
+                    <Section className="section">
+                        <div className="title">
+                            <span>02</span>
+                            <span>meet your crew</span>
                         </div>
 
+                        <h4>{crewMember.role}</h4>
+                        <h3>{crewMember.name}</h3>
+
+                        <p>{crewMember.bio}</p>
+                    </Section>
+
+                    <SideContainer className="side-container">
                         <div className="image-container">
                             <img src={image} alt="Planet image"/>
                         </div>
                     </SideContainer>
-
-                    <Section className="section">
-                        <NavButtons origin="destination" buttons={[]} planets={navPlanets} />
-
-                        <h1>{planetData.name}</h1>
-                        <p>{planetData.description}</p>
-                    
-                        <div className="separator"/>
-
-                        <div className="distance-travel">
-                            <div className="distance">
-                                <span>avg.distance</span>
-                                <span>{planetData.distance}</span>
-                            </div>
-
-                            <div className="travel">
-                                <span>est. travel time</span>
-                                <span>{planetData.travel}</span>
-                            </div>
-                        </div>
-                    </Section>
                 </Main>
             </Container>
         );
@@ -91,14 +69,12 @@ function ContentContainer() {
     function renderLoading() {
         return (
             <Container id="main-page">
-                <Main className="main">
-                    <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>;
-                </Main>
+                <Loading />
             </Container>
         );
     }
 
-    if (planetsData?.length) return renderContent(planetsData);
+    if (crewData?.length) return renderContent(crewData);
     else return renderLoading();
 };
 

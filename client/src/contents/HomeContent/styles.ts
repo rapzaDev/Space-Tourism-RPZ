@@ -4,30 +4,19 @@ export const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-
-  gap: 15.7rem;
-
-  height: 100%;
-  max-height: 900px;
-  width: 100%;
 `;
 
 export const Main = styled.main`
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   
   gap: 24.125rem;
+  
+  padding-left: 10.3rem;
 
-  height: 40.875rem;
-
-  padding: 0 0 7.8rem 10.3rem;
-
-  .loading {
-    position: absolute;
-    top: 0;
-    left: 50%;
-  }
+  margin-top: 15.6875rem;
+  margin-bottom: 8.1875rem;
 `;
 
 export const Section = styled.section`
@@ -68,8 +57,7 @@ export const Section = styled.section`
 
 export const SideContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  height: fit-content;
 
   .explore-hover {
     z-index: 0;

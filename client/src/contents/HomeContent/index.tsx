@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import ReactLoading from 'react-loading';
 
 import { useHome } from '../../hooks/useHome';
 import { HomeContext } from '../../contexts/home';
+
+import Loading from '../../components/Loading';
 
 import { 
     Container, 
@@ -39,10 +40,8 @@ function ContentContainer() {
     function renderLoading() {
         return (
             <Container>
-                <Main className="main-home">
-                    <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>;
-                </Main>
-        </Container>
+                <Loading />
+            </Container>
         );
     }
 

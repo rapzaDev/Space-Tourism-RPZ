@@ -14,6 +14,7 @@ export default createGlobalStyle`
 
     html {
         background-color: ${props => props.theme.colors.primary};
+        scrollbar-width: none;
     }
 
     //QUERIES

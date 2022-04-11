@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useEffect } from 'react';
-import ReactLoading from 'react-loading';
 
 import { Destination } from '../../services/graphql/types';
 
@@ -8,6 +7,7 @@ import { useDestination } from '../../hooks/useDestination';
 import { HomeContext, PlanetType } from '../../contexts/home';
 
 import NavButtons from '../../components/NavButtons';
+import Loading from '../../components/Loading';
 
 import { 
     Container, 
@@ -53,7 +53,7 @@ function ContentContainer() {
             <Container id="main-page">
                 <Main className="main">
                     <SideContainer className="side-container">
-                        <div className="side-title">
+                        <div className="title">
                             <span>01</span>
                             <span>pick your destination</span>
                         </div>
@@ -91,9 +91,7 @@ function ContentContainer() {
     function renderLoading() {
         return (
             <Container id="main-page">
-                <Main className="main">
-                    <ReactLoading className="loading" type='bars' color="#ffffff" height={200} width={200}/>;
-                </Main>
+                <Loading />
             </Container>
         );
     }
