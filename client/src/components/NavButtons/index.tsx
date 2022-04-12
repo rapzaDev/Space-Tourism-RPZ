@@ -1,7 +1,6 @@
 import React, { useContext, useCallback } from 'react';
 
-import { HomeContext, PlanetType } from '../../contexts/home';
-
+import { HomeContext, PlanetType, CrewMember } from '../../contexts/home';
 
 import NavButton from '../NavButton';
 
@@ -13,16 +12,19 @@ export type NavButtonsType = {
 
 type Props = {
     origin: string;
-    buttons: NavButtonsType[];
-    planets: PlanetType[];
+    buttons?: NavButtonsType[];
+    planets?: PlanetType[];
+    crewMembers?: CrewMember[];
 }
 
-function NavButtons({ origin, buttons, planets }: Props) {
+function NavButtons({ origin, buttons, planets, crewMembers }: Props) {
     const {
         category, 
         setCategory,
         planet,
-        setPlanet
+        setPlanet,
+        crewMember,
+        setCrewMember
     } = useContext(HomeContext);
 
     const handleClickCategoryButton = useCallback((title: string) => {
@@ -33,7 +35,12 @@ function NavButtons({ origin, buttons, planets }: Props) {
         setPlanet(navPlanet);
     }, [planet]);
 
+    const handleClickCrewMemberButton = useCallback((member: CrewMember) => {
+        setCrewMember(member)
+    }, [crewMember]);
+
     function renderHeaderCategories() {
+        if (buttons)
         return buttons.map( button => {
             const value = buttons.findIndex(target => target.title === button.title);
 
@@ -42,6 +49,7 @@ function NavButtons({ origin, buttons, planets }: Props) {
                     key={button.title}
                     number={`0${value}`}
                     title={button.title}
+                    bttnType='category'
                     activeButton={category}
                     onClick={() => handleClickCategoryButton(button.title)}
                 />
@@ -50,14 +58,32 @@ function NavButtons({ origin, buttons, planets }: Props) {
     }
 
     function renderPlanets() {
+        if (planets)
         return planets.map( navPlanet => {
 
             return(
                 <NavButton
                     key={navPlanet.title} 
                     title={navPlanet.title}
+                    bttnType='planet'
                     activeButton={planet.title}
                     onClick={() => handleClickPlanetButton(navPlanet)}
+                />
+            );
+        });
+    }
+
+    function renderCrewMembers() {
+        if (crewMembers)
+        return crewMembers.map( member => {
+
+            return(
+                <NavButton
+                    key={member.id} 
+                    title={JSON.stringify(member.id)}
+                    bttnType='crew-member'
+                    activeButton={JSON.stringify(crewMember.id)}
+                    onClick={() => handleClickCrewMemberButton(member)}
                 />
             );
         });
@@ -67,6 +93,7 @@ function NavButtons({ origin, buttons, planets }: Props) {
         <Container id="nav-buttons">
             {( origin === 'header') && renderHeaderCategories()}
             {( origin === 'destination') && renderPlanets()}
+            {( origin === 'crew') && renderCrewMembers()}
         </Container>  
     );
 };

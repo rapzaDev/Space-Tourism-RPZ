@@ -64,7 +64,7 @@ function ContentContainer() {
                     </SideContainer>
 
                     <Section className="section">
-                        <NavButtons origin="destination" buttons={[]} planets={navPlanets} />
+                        <NavButtons origin="destination" planets={navPlanets} />
 
                         <h1>{planetData.name}</h1>
                         <p>{planetData.description}</p>

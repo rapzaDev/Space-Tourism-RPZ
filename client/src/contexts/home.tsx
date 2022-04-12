@@ -9,12 +9,21 @@ export type PlanetType = {
     title: string;
 }
 
+export type CrewMember = {
+    id: number;
+}
+
 type HomeContextType = {
     category: string;
     setCategory: React.Dispatch<React.SetStateAction<string>>;
+    
     planet: PlanetType;
     setPlanet: React.Dispatch<React.SetStateAction<PlanetType>>;
+    
     setExplore: React.Dispatch<React.SetStateAction<boolean>>;
+    
+    crewMember: CrewMember;
+    setCrewMember: React.Dispatch<React.SetStateAction<CrewMember>>;
 }
 
 export const HomeContext = createContext({} as HomeContextType);
@@ -23,13 +32,16 @@ function HomeContextProvider({children}: ContextProviderProps) {
     const [category, setCategory] = useState('home');    
     const [planet, setPlanet] = useState<PlanetType>({id: 1, title:'Moon'});
     const [explore, setExplore] = useState(false);
+    const [crewMember, setCrewMember] = useState<CrewMember>({id: 1})
     
-    const value = {
+    const value: HomeContextType = {
         category, 
         setCategory, 
         planet, 
         setPlanet,
-        setExplore
+        setExplore,
+        crewMember,
+        setCrewMember
     }
 
     useEffect(() => {

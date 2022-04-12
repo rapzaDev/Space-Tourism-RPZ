@@ -46,7 +46,7 @@ function Header() {
             <HeaderLine className="header-line"/>
 
             <NavContainer>
-                {headerButtons && <NavButtons origin='header' buttons={headerButtons} planets={[]}/>}
+                {headerButtons && <NavButtons origin='header' buttons={headerButtons}/>}
             </NavContainer>
         </Container>
     );

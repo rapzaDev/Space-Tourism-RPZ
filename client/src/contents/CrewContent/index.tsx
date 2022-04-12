@@ -6,6 +6,7 @@ import { useCrew } from '../../hooks/useCrew';
 
 import { HomeContext } from '../../contexts/home';
 
+import NavButtons from '../../components/NavButtons';
 import Loading from '../../components/Loading';
 
 import { 
@@ -17,16 +18,16 @@ import {
 
 function ContentContainer() {
     const crewData = useCrew();
-    const { setExplore } = useContext(HomeContext);
+    const { crewMember } = useContext(HomeContext);
 
     useEffect(() => {
-        setExplore(false);
+        
     }, []);
 
     const getCrewData = useCallback((crew: Crew[]) => {
         if (crew.length) {
             const crewMembers = crew;
-            const index = crewMembers.findIndex( member => member.id === 1 );
+            const index = crewMembers.findIndex( member => member.id === crewMember.id );
 
             return { 
                 crewMember: crewMembers[index],
@@ -34,7 +35,7 @@ function ContentContainer() {
         } else return {
             crewMember:{} as Crew,
         };
-    }, []);
+    }, [crewMember]);
 
     function renderContent(crew: Crew[]) {
         const { crewMember } = getCrewData(crew);
@@ -54,6 +55,8 @@ function ContentContainer() {
                         <h3>{crewMember.name}</h3>
 
                         <p>{crewMember.bio}</p>
+
+                        <NavButtons origin='crew' crewMembers={crewData}/>
                     </Section>
 
                     <SideContainer className="side-container">

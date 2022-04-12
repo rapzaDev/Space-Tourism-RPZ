@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { 
     Container,
     Content,
@@ -8,34 +8,32 @@ import {
 type Props = {
     number?: string;
     title: string;
-    onClick: (title: string) => void;
+    bttnType: 'category' | 'planet' | 'crew-member' | 'technology';
     activeButton: string;
+    onClick: (title: string) => void;
 }
 
-const NavButton = React.memo(({number, title, onClick, activeButton}: Props) => {
+const NavButton = React.memo(({number, title, bttnType, activeButton, onClick}: Props) => {
     return(
-        <Container onClick={() => onClick(title)}>
-            <Content className="content">
+        <Container 
+            onClick={ () => onClick(title) }
+            bttnType={bttnType}
+        >
+            <Content 
+                className="content" 
+                bttnType={bttnType}
+                active={activeButton === title}
+            >
                 <span className="number">{number}</span>
                 <span className="title">{title}</span>
             </Content>
 
-            <Underline className={`underline ${ (activeButton === title) && 'active' }`}/>
+            <Underline 
+                className={`underline ${ (activeButton === title) && 'active' }`}
+                bttnType={bttnType}
+            />
         </Container>
     );
-})
-
-// function NavButton({number, title, onClick, activeButton}: Props) {
-//     return(
-//         <Container onClick={() => onClick(title)}>
-//             <Content className="content">
-//                 <span className="number">{number}</span>
-//                 <span className="title">{title}</span>
-//             </Content>
-
-//             <Underline className={`underline ${ (activeButton === title) && 'active' }`}/>
-//         </Container>
-//     );
-// };
+}); 
 
 export default NavButton;

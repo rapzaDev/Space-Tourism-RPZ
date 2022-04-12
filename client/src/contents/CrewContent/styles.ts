@@ -12,16 +12,20 @@ export const Main = styled.main`
   
   gap: 7rem;
 
+  width: fit-content;
+  width: 100pc;
+
   margin-top: 4.75rem;
   padding-left: 10.3rem;
 `;
 
 export const SideContainer = styled.div`
   .image-container{
+    position: absolute;
+    bottom: 0;
+
     img {
       object-fit: contain;
-      height: 712px;
-      width: 568px;
     }
   }
 `;
@@ -31,8 +35,9 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
 
-  width: 100%;
-  max-width: 30.5rem;
+  height: 654px;
+  max-width: 38.375rem;
+
 
   .title {
     display: flex;
@@ -87,5 +92,15 @@ export const Section = styled.section`
     line-height: 32px;
 
     width: 27.75rem;
+    /* margin-bottom: 7.5rem; */
+  }
+
+  nav {
+    position: absolute;
+    bottom: 10.7%;
+
+    .title {
+      display: none;
+    }
   }
 `;
