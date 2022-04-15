@@ -89,6 +89,11 @@ export const Content = styled.div<ButtonType>`
             .title {
                 display: none;
             }  
+
+            &:hover {
+                transition: 0.2s linear; 
+                ${!props.active && css` opacity: 0.5; ` }
+            }
         `
     }
 `;

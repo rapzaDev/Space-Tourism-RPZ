@@ -1,3 +1,14 @@
+export type Image = {
+    png: string;
+    webp: string;
+};
+
+export type TechnologyImages = {
+    portrait: string; 
+    landscape: string;
+};
+
+
 export type Categories = {
     home: string;
     destination: string;
@@ -13,10 +24,6 @@ export type Crew = {
     bio: string;
 };
 
-export type Image = {
-    png: string;
-    webp: string;
-};
 
 export type Destination = {
     id: number;
@@ -30,5 +37,12 @@ export type Destination = {
 export type Home = {
     h5: string;
     h1: string;
+    description: string;
+};
+
+export type Technology = {
+    id: number;
+    name: string;
+    images: TechnologyImages;
     description: string;
 };
